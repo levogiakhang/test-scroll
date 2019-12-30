@@ -1,26 +1,51 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import Scroller from './scroller';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+	constructor(props) {
+		super(props);
+		this.scroller = React.createRef();
+		this.scrollTo = this.scrollTo.bind(this);
+		this.scrollTop = this.scrollTop.bind(this);
+	}
+
+	scrollTo() {
+		if(this.scroller) {
+			this.scroller.scrollTo(100);
+		}
+	}
+
+	scrollTop() {
+		if(this.scroller) {
+			this.scroller.scrollTop(100);
+		}
+	}
+
+	render() {
+		return (
+		  <div>
+			  <div style={{
+				  display: 'flex',
+			  }}>
+				  <button onClick={this.scrollTo}>
+					  Scroll To
+				  </button>
+
+				  <button onClick={this.scrollTop}>
+					  Scroll Top
+				  </button>
+			  </div>
+			  <div
+				style={{
+					width: 500,
+					height: 700,
+				}}>
+				  <Scroller ref={r => this.scroller = r}
+				  height={700}/>
+			  </div>
+		  </div>
+		);
+	}
 }
 
 export default App;
